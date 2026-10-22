@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Procedural terrain explorer. Seeded noise combines coastlines, flat lowlands, and mountain ranges; a colored height mesh provides the 3D view. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Generate seeded procedural terrain with plains, mountains, coastlines, and water.">
+    <title>Map Generator — Louis du Beux</title>
+    <link rel="stylesheet" href="/Lib/Bootstrap4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/NavBar.css">
+    <link rel="stylesheet" href="./mapGenerator.css">
+    <link rel="stylesheet" href="/Theme.css?v=2">
+    <script type="importmap">{"imports":{"three":"/Lib/Three/Three.js"}}</script>
+    <script src="/NavBar.js" defer></script>
+    <link rel="canonical" href="https://louisdubeux.com/Projects/mapGenerator/mapGenerator.html">
+</head>
+<body>
+    <!-- Shared navigation is populated by /NavBar.js. -->
+    <div id="nav-placeholder"></div>
+    <main class="container-fluid py-4">
+        <header><p class="section-label">Procedural worlds</p><h1>Map Generator</h1><p class="text-muted">Explore plains, mountains, and coastlines shaped by layered noise. The same seed always brings you back to the same world.</p></header>
+        <div class="map-layout">
+            <aside class="map-controls">
+                <form id="map-form">
+                    <label for="seed">World seed</label><input id="seed" class="form-control" value="Wild coast" maxlength="100" required>
+                    <label for="scale">Terrain scale <output id="scale-value">4</output></label><input id="scale" type="range" min="2" max="80" step=".5" value="4">
+                    <label for="roughness">Roughness <output id="roughness-value">50%</output></label><input id="roughness" type="range" min="25" max="75" value="50">
+                    <label for="sea">Sea level <output id="sea-value">42%</output></label><input id="sea" type="range" min="15" max="75" value="42">
+                    <label class="island-option"><input id="island" type="checkbox" checked> Island coastline</label>
+                    <div class="map-actions"><button class="btn btn-primary" type="submit">Generate map</button><button id="random-seed" class="btn btn-outline-light" type="button">Random seed</button><button id="download-map" class="btn btn-outline-light" type="button" disabled>Download PNG</button></div>
+                </form>
+                <h2>Terrain</h2><ul id="map-legend"></ul>
+                <p class="text-muted small">Terrain scale changes the map size: each scale unit adds 40 world units per side. Larger maps contain more terrain at a consistent feature size. Turn off Island coastline for terrain that continues to the map edges.</p>
+            </aside>
+            <section class="map-panel" aria-label="Generated terrain map">
+                <div class="view-actions" aria-label="Map navigation"><button id="zoom-in" class="btn btn-outline-light" type="button">Zoom in</button><button id="zoom-out" class="btn btn-outline-light" type="button">Zoom out</button><button id="reset-view" class="btn btn-outline-light" type="button">Reset view</button></div>
+                <p id="navigation-help" class="text-muted small">Drag to orbit · Scroll to zoom · Right-drag to pan · Focus the map and use WASD or arrow keys to move. Touch: one finger to orbit, two fingers to pan and pinch to zoom.</p>
+                <div id="terrain-view"><canvas id="terrain-map" tabindex="0" aria-label="Interactive 3D terrain map" aria-describedby="navigation-help"></canvas><p id="scene-error" role="alert" hidden></p></div>
+                <p id="map-status" role="status" aria-live="polite">Generating map…</p>
+            </section>
+        </div>
+    </main>
+    <!-- Load the project entry module after its controls and view containers exist. -->
+    <script type="module" src="./mapGenerator.js"></script>
+</body>
+</html>

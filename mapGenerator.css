@@ -1,0 +1,25 @@
+/* Procedural terrain explorer. Seeded noise combines coastlines, flat lowlands, and mountain ranges; a colored height mesh provides the 3D view.
+ * Page-specific layout and controls; shared theme colors are supplied by /Theme.css.
+ */
+main { max-width: 1500px; }
+.section-label { color: var(--site-accent); text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; }
+.map-layout { display: grid; grid-template-columns: 290px minmax(0,1fr); gap: 1.5rem; align-items: start; }
+.map-controls { padding: 1.25rem; border: 1px solid var(--site-border); background: var(--site-surface); border-radius: 12px; }
+.map-controls label { display: block; margin: 1rem 0 .4rem; }
+.map-controls label:first-child { margin-top: 0; }
+.map-controls output { float: right; color: var(--site-accent); }
+.map-controls input[type="range"] { display: block; width: 100%; }
+.map-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 1.5rem; }
+.map-controls h2 { font-size: 1rem; }
+#map-legend { list-style: none; padding: 0; margin: .75rem 0 1.25rem; }
+#map-legend li { display: flex; align-items: center; gap: .6rem; margin-bottom: .35rem; font-size: .9rem; }
+.biome-swatch { display: inline-block; width: 1rem; height: 1rem; border-radius: 3px; }
+.map-panel { padding: 1rem; background: var(--site-surface); border: 1px solid var(--site-border); border-radius: 12px; text-align: center; }
+#terrain-view { position: relative; width: 100%; height: 68vh; min-height: 350px; }
+#terrain-map { display: block; width: 100%; height: 100%; border-radius: 6px; touch-action: none; }
+#terrain-map:focus-visible { outline: 3px solid var(--site-accent); outline-offset: 2px; }
+.view-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+#scene-error { position: absolute; top: 1rem; left: 1rem; right: 1rem; background: var(--site-surface); padding: 1rem; }
+#map-status { margin: 1rem 0 0; color: var(--site-muted); }
+/* Stack or resize the project layout on narrower screens. */
+@media(max-width:700px) { .map-layout { grid-template-columns: 1fr; } }
